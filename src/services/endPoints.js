@@ -1,39 +1,27 @@
 import { firebaseConfig } from '../config/dbFirebase';
+import { ToastAndroid, AlertIOS } from 'react-native';
 
-export const adicionar =  (item) => {
-    firebaseConfig.ref('/items').push({
-        name: item
-  });
+
+export const adicionar =  (param1, param2, param3) => {
+    const queryPush = firebaseConfig.ref('/jogos').push({
+        nome: param1,
+        genero: param2,
+        ano: param3
+    })
+    
+    const id = queryPush.key;
+    //ToastAndroid.show('chave '+id, ToastAndroid.LONG);
+    firebaseConfig.ref('/jogos/'+ id +'/id').set(id) //gambiarra HueHue
 }
 
-let key = "-Le9S2SD0pGl90KPD7A_"
-
-export const alterar = (item) => {
-    //item.getKey();
-    firebaseConfig.ref('/items/'+ key).update({
-        name: item,
-    });
+export const alterar = (id, param1, param2, param3) => {
+    firebaseConfig.ref('/jogos/'+ id).update({
+        nome: param1,
+        genero: param2,
+        ano: param3
+    })
 }
 
-export const remover = (item) => {
-    //item.getKey();
-    firebaseConfig.ref('/items/'+ key).remove();
+export const remover = (id) => {
+    firebaseConfig.ref('/jogos/'+ id).remove()
 }
-
-
-
-
-/*
-let key = "-LlouZxkW1N3Llt6h5nm"
-firebase.database().ref(`users/${userUid}/collection/${key}`).remove()
-
-firebase.database().ref(`users/${userUid}/collection/`).remove(item)
-
-// To Update a user
-firebase.database().ref('users/004').update({
-    name: 'Pheng Sengvuthy'
-});
-
-// To Remove a user
-firebase.database().ref('users/004').remove();
-*/

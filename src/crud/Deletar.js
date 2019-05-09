@@ -7,28 +7,24 @@ export default class Deletar extends Component {
   constructor(props) {
       super(props);
       this.state = {
-        name: ''
+        id: ''
       }
-      this.handleChange = this.handleChange.bind(this);
       this.handleSubmit = this.handleSubmit.bind(this);
     }
-    handleChange(e) {
-      this.setState({
-        name: e.nativeEvent.text
-      });
-    }
     handleSubmit() {
-      remover(this.state.name);
+      remover(this.state.id);
       ToastAndroid.show('Item removido com sucesso', ToastAndroid.LONG);
     }
   render() {
     return (
       <View style={styles.main}>
         <Text style={styles.title}>Remover um item</Text>
+
+        <Text style={styles.subTitle}>ID (confira aba de listar e copie):</Text>
         <TextInput
-              style={styles.itemInput}
-              onChange={this.handleChange}
-            />
+            style={styles.itemInput}
+            onChangeText={(idp) => this.setState({id: idp})}
+          />
         <TouchableHighlight
                 style = {styles.button}
                 underlayColor= "white"
@@ -60,7 +56,12 @@ const styles = StyleSheet.create({
   title: {
     marginBottom: 20,
     fontSize: 25,
+    fontWeight: 'bold',
     textAlign: 'center'
+  },
+  subTitle: {
+    marginTop: 10,
+    fontSize: 20
   },
   itemInput: {
     height: 50,

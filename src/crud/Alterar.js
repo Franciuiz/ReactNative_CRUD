@@ -7,28 +7,46 @@ export default class Alterar extends Component {
   constructor(props) {
       super(props);
       this.state = {
-        name: ''
+        id: '',
+        nome: '',
+        genero: '',
+        ano: ''
       }
-      this.handleChange = this.handleChange.bind(this);
       this.handleSubmit = this.handleSubmit.bind(this);
     }
-    handleChange(e) {
-      this.setState({
-        name: e.nativeEvent.text
-      });
-    }
     handleSubmit() {
-      alterar(this.state.name);
+      alterar(this.state.id, this.state.nome, this.state.genero, this.state.ano);
       ToastAndroid.show('Item modificado com sucesso', ToastAndroid.LONG);
     }
   render() {
     return (
       <View style={styles.main}>
         <Text style={styles.title}>Alterar um item</Text>
+
+        <Text style={styles.subTitle}>ID (confira aba de listar e copie):</Text>
         <TextInput
-              style={styles.itemInput}
-              onChange={this.handleChange}
-            />
+            style={styles.itemInput}
+            onChangeText={(idp) => this.setState({id: idp})}
+          />
+        
+        <Text style={styles.subTitle}>Novo Nome:</Text>
+        <TextInput
+            style={styles.itemInput}
+            onChangeText={(nomep) => this.setState({nome: nomep})}
+          />
+
+        <Text style={styles.subTitle}>Novo Genero:</Text>
+        <TextInput
+            style={styles.itemInput}
+            onChangeText={(generop) => this.setState({genero: generop})}
+          />
+          
+        <Text style={styles.subTitle}>Novo Ano:</Text>
+        <TextInput
+            style={styles.itemInput}
+            onChangeText={(anop) => this.setState({ano: anop})}
+          />
+
         <TouchableHighlight
                 style = {styles.button}
                 underlayColor= "white"
@@ -60,7 +78,12 @@ const styles = StyleSheet.create({
   title: {
     marginBottom: 20,
     fontSize: 25,
+    fontWeight: 'bold',
     textAlign: 'center'
+  },
+  subTitle: {
+    marginTop: 10,
+    fontSize: 20
   },
   itemInput: {
     height: 50,

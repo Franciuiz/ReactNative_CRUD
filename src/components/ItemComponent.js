@@ -1,37 +1,49 @@
 import React, { Component } from 'react';
-import {  View, Text, StyleSheet} from 'react-native';
+import { ScrollView, TextInput, View, Text, StyleSheet, ToastAndroid} from 'react-native';
 import PropTypes from 'prop-types';
 
-const styles = StyleSheet.create({
-    itemsList: {
-        flex: 1,
-        flexDirection: 'column',
-        alignItems: 'center',
-    },
-    itemtext: {
-        fontSize: 24,
-        fontWeight: 'bold',
-        textAlign: 'center',
-    }
-});
 
 export default class ItemComponent extends Component {
 
   static propTypes = {
-      items: PropTypes.array.isRequired
+      jogos: PropTypes.array.isRequired
   };
 
   render() {
     return (
-      <View style={styles.itemsList}>
-        {this.props.items.map((item, index) => {
+      <ScrollView>
+        {this.props.jogos.map((jogos, index) => {
             return (
                 <View key={index}>
-                    <Text style={styles.itemtext}>{item.name}</Text>
+                  <TextInput style={styles.textInput}
+                    defaultValue={jogos.id}
+                  />
+                    <Text style={styles.jogosText}>Jogo: {jogos.nome}</Text>
+                    <Text style={styles.jogosText}>Genero: {jogos.genero}</Text>
+                    <Text style={styles.jogosText}>Ano: {jogos.ano}</Text>
+                    
                 </View>
             )
         })}
-      </View>
+      </ScrollView>
     );
   }
 }
+
+//CSS
+const styles = StyleSheet.create({
+  jogosText: {
+      fontSize: 20,
+      fontWeight: 'bold',
+      textAlign: 'center'
+  },
+  textInput: {
+    flexDirection: 'column',
+    alignItems: 'center',
+    textAlign: 'center',
+    height: 40,
+    fontSize: 20,
+    padding: 4,
+    marginRight: 5
+  }
+});
